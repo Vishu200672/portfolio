@@ -135,7 +135,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#1e293b] hover:bg-[#334155] text-white text-xs font-mono transition-colors"
                     >
                       <span className="text-[#ffd21e]">🤗</span>
-                      <span>Hugging Face Space</span>
+                      <span>{project.links.huggingFace.includes('/spaces/') ? 'Hugging Face Space' : 'Hugging Face (Model)'}</span>
                     </motion.a>
                   )}
 

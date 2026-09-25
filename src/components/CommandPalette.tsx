@@ -174,13 +174,13 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
       action: copyEmail,
     },
     {
-      id: "smarthire-demo",
+      id: "smarthire-hf",
       category: "Project",
-      title: "Launch SmartHire AI Live Demo (Streamlit)",
-      shortcut: "DEMO",
+      title: "Open SmartHire AI on Hugging Face",
+      shortcut: "HF",
       icon: Globe,
       action: () => {
-        window.open("https://smarthire-ai.streamlit.app", "_blank");
+        window.open("https://huggingface.co/spaces/Vishu2006/SmartHire-AI", "_blank");
         onClose();
       },
     },

@@ -163,7 +163,6 @@ export const projectsData: ProjectDetail[] = [
     result:
       "Achieved Pearson correlation r = 0.9733 and Spearman rank correlation ρ = 0.9604 against human ground-truth rankings (+9.4% accuracy improvement over the un-tuned base model). 100% precision on true mismatch detection. Deployed live with public Swagger docs and interactive Streamlit UI.",
     links: {
-      liveDemo: "https://smarthire-ai.streamlit.app",
       github: "https://github.com/Vishu200672/SmartHire-AI",
       huggingFace: "https://huggingface.co/spaces/Vishu2006/SmartHire-AI"
     }

@@ -455,7 +455,7 @@ export default function FeaturedProjects() {
                             className="flex-1 min-w-[120px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#131b2e] hover:bg-[#1e293b] text-white font-mono text-xs transition-colors border border-[#1e293b]"
                           >
                             <span className="text-[#ffd21e]">🤗</span>
-                            <span>HF Space</span>
+                            <span>{project.links.huggingFace.includes('/spaces/') ? 'HF Space' : 'Hugging Face'}</span>
                           </motion.a>
                         )}
 
