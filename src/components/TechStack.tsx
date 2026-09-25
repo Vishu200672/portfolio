@@ -106,9 +106,9 @@ export default function TechStack() {
         {/* Skills Grid with Animated Reorganization */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <AnimatePresence mode="popLayout">
-            {displayedSkills.map((skill, index) => (
+            {displayedSkills.map((skill) => (
               <motion.div
-                key={skill.name}
+                key={`${skill.category}-${skill.name}`}
                 layout
                 initial={{ opacity: 0, scale: 0.95, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
