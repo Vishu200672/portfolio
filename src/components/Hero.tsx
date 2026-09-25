@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import {
   ArrowDown,
   FileDown,
@@ -33,7 +34,12 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-center text-center">
         {/* Engineering Status Pill */}
-        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0a0f1b]/90 border border-[#172033] shadow-sm mb-6 backdrop-blur-md">
+        <motion.div
+          initial={{ opacity: 0, y: -15, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0a0f1b]/90 border border-[#172033] shadow-sm mb-6 backdrop-blur-md"
+        >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]"></span>
@@ -45,83 +51,121 @@ export default function Hero() {
           <span className="text-xs font-mono text-[#00f0ff]">
             B.TECH CSE • CGPA 8.62
           </span>
-        </div>
+        </motion.div>
 
         {/* Primary Identity & Title */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-4 max-w-4xl font-sans">
-          <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400">
-            {profileData.name}
-          </span>
-          <span className="block text-2xl sm:text-3xl lg:text-4xl font-mono font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] via-[#38bdf8] to-[#818cf8] mt-2">
-            {profileData.role}
-          </span>
-        </h1>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-4 max-w-4xl font-sans">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400">
+              {profileData.name}
+            </span>
+            <span className="block text-2xl sm:text-3xl lg:text-4xl font-mono font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#00f0ff] via-[#38bdf8] to-[#818cf8] mt-2">
+              {profileData.role}
+            </span>
+          </h1>
+        </motion.div>
 
         {/* Secondary Descriptor */}
-        <p className="text-base sm:text-lg lg:text-xl text-[#94a3b8] max-w-2xl mx-auto mb-8 font-mono leading-relaxed">
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="text-base sm:text-lg lg:text-xl text-[#94a3b8] max-w-2xl mx-auto mb-8 font-mono leading-relaxed"
+        >
           {profileData.headline}
-        </p>
+        </motion.p>
 
         {/* Verifiable Work Callout Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mb-8">
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#0a0e17] border border-[#172033] text-xs font-mono text-[#94a3b8]">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mb-8"
+        >
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#0a0e17] border border-[#172033] hover:border-[#00f0ff]/40 text-xs font-mono text-[#94a3b8] transition-all hover:scale-105">
             <Eye className="w-3.5 h-3.5 text-[#00f0ff]" />
             <span>Computer Vision (ConvNeXt & Edge APK)</span>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#0a0e17] border border-[#172033] text-xs font-mono text-[#94a3b8]">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#0a0e17] border border-[#172033] hover:border-[#818cf8]/40 text-xs font-mono text-[#94a3b8] transition-all hover:scale-105">
             <Sparkles className="w-3.5 h-3.5 text-[#818cf8]" />
             <span>Transformers (Sentence-BERT r = 0.9733)</span>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#0a0e17] border border-[#172033] text-xs font-mono text-[#94a3b8]">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#0a0e17] border border-[#172033] hover:border-[#10b981]/40 text-xs font-mono text-[#94a3b8] transition-all hover:scale-105">
             <Cpu className="w-3.5 h-3.5 text-[#10b981]" />
             <span>FastAPI Serving & Microservices</span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* CTAs */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-12">
-          <a
+        {/* CTAs with interactive hover animations */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-12"
+        >
+          <motion.a
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
             href="#projects"
-            className="flex items-center gap-2 px-6 py-3 rounded-lg bg-[#00f0ff] text-[#05070b] font-mono text-sm font-bold shadow-[0_0_20px_-3px_rgba(0,240,255,0.4)] hover:bg-[#38bdf8] transition-all transform hover:-translate-y-0.5"
+            className="flex items-center gap-2 px-6 py-3 rounded-lg bg-[#00f0ff] text-[#05070b] font-mono text-sm font-bold shadow-[0_0_20px_-3px_rgba(0,240,255,0.4)] hover:bg-[#38bdf8] transition-colors"
           >
             <span>Explore My Work</span>
-            <ArrowDown className="w-4 h-4" />
-          </a>
+            <ArrowDown className="w-4 h-4 animate-bounce" />
+          </motion.a>
 
-          <a
+          <motion.a
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
             href={profileData.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-[#0a0f1b] border border-[#172033] hover:border-[#00f0ff]/50 text-white font-mono text-sm transition-all hover:bg-[#0f172a]"
+            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-[#0a0f1b] border border-[#172033] hover:border-[#00f0ff]/50 text-white font-mono text-sm transition-colors hover:bg-[#0f172a]"
           >
             <Github className="w-4 h-4 text-[#00f0ff]" />
             <span>View GitHub</span>
-          </a>
+          </motion.a>
 
-          <a
+          <motion.a
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
             href={profileData.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-[#0a0f1b] border border-[#172033] hover:border-[#10b981]/50 text-white font-mono text-sm transition-all hover:bg-[#0f172a]"
+            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-[#0a0f1b] border border-[#172033] hover:border-[#10b981]/50 text-white font-mono text-sm transition-colors hover:bg-[#0f172a]"
           >
             <FileDown className="w-4 h-4 text-[#10b981]" />
             <span>Download Resume</span>
-          </a>
+          </motion.a>
 
-          <a
+          <motion.a
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
             href={`mailto:${profileData.email}`}
-            className="flex items-center gap-2 px-4 py-3 rounded-lg bg-[#0a0f1b] border border-[#172033] hover:border-[#818cf8]/50 text-[#94a3b8] hover:text-white font-mono text-sm transition-all hover:bg-[#0f172a]"
+            className="flex items-center gap-2 px-4 py-3 rounded-lg bg-[#0a0f1b] border border-[#172033] hover:border-[#818cf8]/50 text-[#94a3b8] hover:text-white font-mono text-sm transition-colors hover:bg-[#0f172a]"
             aria-label="Send direct email"
           >
             <Mail className="w-4 h-4" />
             <span className="hidden sm:inline">vtpt2072@gmail.com</span>
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
         {/* Dynamic Neural Pipeline Flow Visualizer */}
-        <div className="w-full max-w-5xl mt-2">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-5xl mt-2"
+        >
           <ArchitectureFlow />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

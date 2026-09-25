@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import {
   Star,
   GitFork,
@@ -13,6 +14,7 @@ import {
 } from "lucide-react";
 import { Github } from "@/components/icons/BrandIcons";
 import { profileData } from "@/data/profile";
+import { FadeIn } from "@/components/MotionWrapper";
 
 interface RepoItem {
   name: string;
@@ -64,91 +66,96 @@ export default function GitHubSection() {
     <section id="github" className="py-24 bg-[#070b12] relative border-t border-[#172033]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14 border-b border-[#172033] pb-6">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-[#00f0ff] uppercase tracking-wider mb-2">
-              <Terminal className="w-3.5 h-3.5" />
-              <span>// 08. CODE REPOSITORIES</span>
+        <FadeIn>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14 border-b border-[#172033] pb-6">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-mono text-[#00f0ff] uppercase tracking-wider mb-2">
+                <Terminal className="w-3.5 h-3.5" />
+                <span>// 08. CODE REPOSITORIES</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white font-sans">
+                Open-Source & Verifiable Work
+              </h2>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white font-sans">
-              Open-Source & Verifiable Work
-            </h2>
-          </div>
 
-          <a
-            href={profileData.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs font-mono text-[#00f0ff] hover:underline"
-          >
-            <span>github.com/Vishu200672</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
+            <a
+              href={profileData.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs font-mono text-[#00f0ff] hover:underline"
+            >
+              <span>github.com/Vishu200672</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </FadeIn>
 
         {/* Repositories Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {repos.map((repo, idx) => (
-            <a
-              key={idx}
-              href={repo.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-6 rounded-2xl bg-[#090d16] border border-[#172033] hover:border-[#00f0ff]/50 hover:bg-[#0c121e] transition-all duration-200 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2 text-white">
-                    {repo.isHF ? (
-                      <span className="text-lg">🤗</span>
-                    ) : (
-                      <Github className="w-5 h-5 text-[#94a3b8] group-hover:text-[#00f0ff] transition-colors" />
-                    )}
-                    <span className="font-mono text-sm font-bold truncate">
-                      {repo.name}
-                    </span>
-                  </div>
-                  <ExternalLink className="w-4 h-4 text-[#64748b] group-hover:text-white transition-colors" />
-                </div>
-
-                <div className="text-[11px] font-mono text-[#64748b] mb-3">
-                  {repo.repo}
-                </div>
-
-                <p className="text-xs text-[#94a3b8] leading-relaxed mb-6">
-                  {repo.description}
-                </p>
-              </div>
-
-              <div>
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {repo.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060910] text-[#64748b] border border-[#172033]"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Footer Language Metadata */}
-                <div className="pt-3 border-t border-[#172033] flex items-center justify-between text-xs font-mono text-[#94a3b8]">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-2.5 h-2.5 rounded-full"
-                      style={{ backgroundColor: repo.languageColor }}
-                    />
-                    <span>{repo.language}</span>
+            <FadeIn key={idx} delay={idx * 0.1}>
+              <motion.a
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2 }}
+                href={repo.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-6 rounded-2xl bg-[#090d16] border border-[#172033] hover:border-[#00f0ff]/50 hover:bg-[#0c121e] transition-colors duration-200 flex flex-col justify-between h-full"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2 text-white">
+                      {repo.isHF ? (
+                        <span className="text-lg">🤗</span>
+                      ) : (
+                        <Github className="w-5 h-5 text-[#94a3b8] group-hover:text-[#00f0ff] transition-colors" />
+                      )}
+                      <span className="font-mono text-sm font-bold truncate">
+                        {repo.name}
+                      </span>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-[#64748b] group-hover:text-white transition-colors" />
                   </div>
 
-                  <span className="text-[10px] text-[#10b981]">
-                    PUBLIC_REPO
-                  </span>
+                  <div className="text-[11px] font-mono text-[#64748b] mb-3">
+                    {repo.repo}
+                  </div>
+
+                  <p className="text-xs text-[#94a3b8] leading-relaxed mb-6">
+                    {repo.description}
+                  </p>
                 </div>
-              </div>
-            </a>
+
+                <div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {repo.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060910] text-[#64748b] border border-[#172033]"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Footer Language Metadata */}
+                  <div className="pt-3 border-t border-[#172033] flex items-center justify-between text-xs font-mono text-[#94a3b8]">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="w-2.5 h-2.5 rounded-full"
+                        style={{ backgroundColor: repo.languageColor }}
+                      />
+                      <span>{repo.language}</span>
+                    </div>
+
+                    <span className="text-[10px] text-[#10b981]">
+                      PUBLIC_REPO
+                    </span>
+                  </div>
+                </div>
+              </motion.a>
+            </FadeIn>
           ))}
         </div>
       </div>

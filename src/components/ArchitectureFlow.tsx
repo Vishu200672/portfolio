@@ -1,7 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Database, Cpu, Layers, Zap, Server, Layout, ArrowRight, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Database,
+  Cpu,
+  Layers,
+  Zap,
+  Server,
+  Layout,
+  ArrowRight,
+  CheckCircle2
+} from "lucide-react";
 
 interface PipelineNode {
   id: string;
@@ -82,7 +92,7 @@ export default function ArchitectureFlow() {
   const active = nodes.find((n) => n.id === selectedNode) || nodes[2];
 
   return (
-    <div className="w-full bg-[#070b12]/90 border border-[#172033] rounded-xl p-4 md:p-6 backdrop-blur-md relative overflow-hidden">
+    <div className="w-full bg-[#070b12]/90 border border-[#172033] rounded-xl p-4 md:p-6 backdrop-blur-md relative overflow-hidden transition-all duration-300">
       {/* Decorative technical header */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-[#172033]/80">
         <div className="flex items-center gap-2">
@@ -105,13 +115,22 @@ export default function ArchitectureFlow() {
             <button
               key={node.id}
               onClick={() => setSelectedNode(node.id)}
-              className={`group flex flex-col p-3 rounded-lg border text-left transition-all duration-200 relative ${
+              className={`group flex flex-col p-3 rounded-lg border text-left transition-all duration-200 relative overflow-hidden ${
                 isSelected
                   ? "bg-[#0f172a] border-[#00f0ff] shadow-[0_0_15px_-3px_rgba(0,240,255,0.25)]"
                   : "bg-[#090d16] border-[#172033] hover:border-[#24324f] hover:bg-[#0c121e]"
               }`}
             >
-              <div className="flex items-center justify-between mb-2">
+              {/* Active animated indicator backdrop */}
+              {isSelected && (
+                <motion.div
+                  layoutId="activePipelineGlow"
+                  className="absolute inset-0 bg-[#00f0ff]/5 pointer-events-none rounded-lg"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+
+              <div className="flex items-center justify-between mb-2 relative z-10">
                 <span className="text-[10px] font-mono text-[#64748b]">
                   0{idx + 1}
                 </span>
@@ -122,13 +141,13 @@ export default function ArchitectureFlow() {
               </div>
 
               <span
-                className="text-xs font-mono font-bold tracking-wider"
+                className="text-xs font-mono font-bold tracking-wider relative z-10"
                 style={{ color: isSelected ? "#00f0ff" : "#f1f5f9" }}
               >
                 {node.name}
               </span>
 
-              <span className="text-[10px] text-[#94a3b8] truncate mt-0.5">
+              <span className="text-[10px] text-[#94a3b8] truncate mt-0.5 relative z-10">
                 {node.subname}
               </span>
 
@@ -143,23 +162,34 @@ export default function ArchitectureFlow() {
         })}
       </div>
 
-      {/* Selected node telemetry drawer */}
-      <div className="mt-4 pt-4 border-t border-[#172033]/80 bg-[#05070d]/60 rounded-lg p-3.5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
-        <div className="space-y-1 max-w-xl">
-          <div className="flex items-center gap-2">
-            <span className="font-mono font-semibold text-[#00f0ff]">
-              [{active.name}] {active.subname}
-            </span>
-            <span className="text-[#64748b]">•</span>
-            <span className="font-mono text-[#94a3b8]">{active.tech}</span>
-          </div>
-          <p className="text-[#cbd5e1] leading-relaxed">{active.detail}</p>
-        </div>
+      {/* Selected node telemetry drawer with cross-fade transition */}
+      <div className="mt-4 pt-4 border-t border-[#172033]/80 bg-[#05070d]/60 rounded-lg p-3.5 min-h-[72px]">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs"
+          >
+            <div className="space-y-1 max-w-xl">
+              <div className="flex items-center gap-2">
+                <span className="font-mono font-semibold text-[#00f0ff]">
+                  [{active.name}] {active.subname}
+                </span>
+                <span className="text-[#64748b]">•</span>
+                <span className="font-mono text-[#94a3b8]">{active.tech}</span>
+              </div>
+              <p className="text-[#cbd5e1] leading-relaxed">{active.detail}</p>
+            </div>
 
-        <div className="flex items-center gap-2 bg-[#090e1a] border border-[#1e293b] px-3 py-2 rounded-md font-mono text-[11px] shrink-0 text-[#10b981]">
-          <CheckCircle2 className="w-3.5 h-3.5" />
-          <span>{active.metric}</span>
-        </div>
+            <div className="flex items-center gap-2 bg-[#090e1a] border border-[#1e293b] px-3 py-2 rounded-md font-mono text-[11px] shrink-0 text-[#10b981]">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>{active.metric}</span>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
