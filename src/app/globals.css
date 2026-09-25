@@ -1,26 +1,151 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #05070b;
+    --foreground: #f1f5f9;
+    --card: #0a0e17;
+    --card-hover: #0f1523;
+    --border: #172033;
+    --border-bright: #24324f;
+    --cyan: #00f0ff;
+    --cyan-dim: #00b4d8;
+    --cyan-glow: rgba(0, 240, 255, 0.15);
+    --emerald: #10b981;
+    --emerald-glow: rgba(16, 185, 129, 0.15);
+    --indigo: #6366f1;
+    --indigo-glow: rgba(99, 102, 241, 0.15);
+    --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: var(--font-geist-mono), "JetBrains Mono", Consolas, monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(0, 240, 255, 0.25);
+    color: #ffffff;
+  }
+
+  /* Custom technical scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05070b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #172033;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00f0ff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Technical engineering background patterns */
+.bg-tech-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-tech-dots {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(0, 240, 255, 0.12) 1px, transparent 1px);
+}
+
+/* Subtle glow effects */
+.glow-cyan {
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.3);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+}
+
+.glow-subtle {
+  box-shadow: 0 0 40px -10px rgba(0, 240, 255, 0.08);
+}
+
+/* Technical coordinate cross decoration */
+.tech-cross {
+  position: relative;
+}
+.tech-cross::before {
+  content: "+";
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: rgba(0, 240, 255, 0.4);
+  position: absolute;
+}
+
+/* Keyframe animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes dataFlow {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+/* Technical monospace accents */
+.font-mono-tech {
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid #00f0ff;
+  outline-offset: 2px;
 }
