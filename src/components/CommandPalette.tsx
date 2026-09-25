@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Linkedin, Github } from "@/components/icons/BrandIcons";
 import { profileData } from "@/data/profile";
+import { soundEffects } from "@/utils/audio";
 
 interface CommandItem {
   id: string;
@@ -43,6 +44,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
   // Focus input when opened
   useEffect(() => {
     if (isOpen) {
+      soundEffects.playPulse();
       setTimeout(() => inputRef.current?.focus(), 50);
       document.body.style.overflow = "hidden";
     } else {
@@ -77,6 +79,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
   }, [isOpen, onClose]);
 
   const navigateTo = (hash: string) => {
+    soundEffects.playClick(850);
     onClose();
     const el = document.querySelector(hash);
     if (el) {
@@ -85,10 +88,11 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
   };
 
   const copyEmail = () => {
+    soundEffects.playSuccess();
     navigator.clipboard.writeText(profileData.email);
     setCopied(true);
     setTimeout(() => {
-      setCopied(false),
+      setCopied(false);
       onClose();
     }, 1200);
   };
@@ -272,7 +276,10 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                       whileHover={{ x: 3 }}
                       transition={{ duration: 0.15 }}
                       key={cmd.id}
-                      onClick={cmd.action}
+                      onClick={() => {
+                        soundEffects.playClick(900);
+                        cmd.action();
+                      }}
                       className="w-full flex items-center justify-between p-3 rounded-lg text-left hover:bg-[#0f172a] group transition-colors focus:bg-[#0f172a] focus:outline-none"
                     >
                       <div className="flex items-center gap-3">

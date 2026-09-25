@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { profileData } from "@/data/profile";
 import { FadeIn } from "@/components/MotionWrapper";
+import SpotlightCard from "@/components/SpotlightCard";
 
 export default function ResumeSection() {
   const [showPdfViewer, setShowPdfViewer] = useState(false);
@@ -44,7 +45,10 @@ export default function ResumeSection() {
 
         {/* Resume Card Container */}
         <FadeIn delay={0.1}>
-          <div className="p-8 sm:p-10 rounded-2xl bg-[#090d16] border border-[#172033] hover:border-[#24324f] transition-colors relative overflow-hidden shadow-2xl">
+          <SpotlightCard
+            spotlightColor="rgba(0, 240, 255, 0.16)"
+            className="p-8 sm:p-10"
+          >
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               <div className="space-y-4 max-w-2xl">
                 <div className="flex items-center gap-3">
@@ -113,7 +117,7 @@ export default function ResumeSection() {
                 </a>
               </div>
             </div>
-          </div>
+          </SpotlightCard>
         </FadeIn>
 
         {/* Embedded PDF Modal Viewer with AnimatePresence */}

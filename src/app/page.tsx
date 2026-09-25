@@ -15,6 +15,8 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import CommandPalette from "@/components/CommandPalette";
 import TechnicalCoordinateSystem from "@/components/TechnicalCoordinateSystem";
+import NoiseOverlay from "@/components/NoiseOverlay";
+import { soundEffects } from "@/utils/audio";
 
 export default function Home() {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
@@ -30,11 +32,13 @@ export default function Home() {
 
       if (!isInput && e.key === "/") {
         e.preventDefault();
+        soundEffects.playPulse();
         setCommandPaletteOpen(true);
       }
 
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
+        soundEffects.playPulse();
         setCommandPaletteOpen((prev) => !prev);
       }
     };
@@ -45,11 +49,19 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#05070b] text-[#f1f5f9] relative selection:bg-[#00f0ff]/25 selection:text-white">
+      {/* Matte Film-Grain Noise Texture */}
+      <NoiseOverlay />
+
       {/* Futuristic Technical Coordinate HUD Overlay */}
       <TechnicalCoordinateSystem />
 
       {/* Primary Navigation Bar */}
-      <Navbar onOpenCommandPalette={() => setCommandPaletteOpen(true)} />
+      <Navbar
+        onOpenCommandPalette={() => {
+          soundEffects.playPulse();
+          setCommandPaletteOpen(true);
+        }}
+      />
 
       {/* Command Palette Modal */}
       <CommandPalette

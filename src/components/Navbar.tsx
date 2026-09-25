@@ -8,10 +8,13 @@ import {
   Menu,
   X,
   Cpu,
-  ChevronRight
+  ChevronRight,
+  Volume2,
+  VolumeX
 } from "lucide-react";
 import { Linkedin, Github } from "@/components/icons/BrandIcons";
 import { profileData } from "@/data/profile";
+import { soundEffects } from "@/utils/audio";
 
 interface NavbarProps {
   onOpenCommandPalette: () => void;
@@ -20,14 +23,21 @@ interface NavbarProps {
 export default function Navbar({ onOpenCommandPalette }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
+    setAudioEnabled(soundEffects.getAudioState());
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleToggleAudio = () => {
+    const newState = soundEffects.toggleAudio();
+    setAudioEnabled(newState);
+  };
 
   const navLinks = [
     { name: "Projects", href: "#projects" },
@@ -54,6 +64,7 @@ export default function Navbar({ onOpenCommandPalette }: NavbarProps) {
             href="/"
             className="flex items-center gap-2 group focus:outline-none"
             aria-label="Vishvam Trivedi Home"
+            onClick={() => soundEffects.playClick(900)}
           >
             <div className="w-8 h-8 rounded-lg bg-[#0a0e17] border border-[#172033] group-hover:border-[#00f0ff] flex items-center justify-center transition-colors">
               <Cpu className="w-4 h-4 text-[#00f0ff]" />
@@ -89,6 +100,7 @@ export default function Navbar({ onOpenCommandPalette }: NavbarProps) {
             <a
               key={link.name}
               href={link.href}
+              onClick={() => soundEffects.playClick(850)}
               className="px-3 py-1.5 text-xs font-mono text-[#94a3b8] hover:text-[#00f0ff] hover:bg-[#0f172a] rounded-full transition-colors"
             >
               {link.name}
@@ -98,9 +110,27 @@ export default function Navbar({ onOpenCommandPalette }: NavbarProps) {
 
         {/* Action Controls */}
         <div className="flex items-center gap-2">
+          {/* Audio Synthesizer Toggle */}
+          <button
+            onClick={handleToggleAudio}
+            title={audioEnabled ? "Disable UI Sound Synthesis" : "Enable Futuristic UI Sound Synthesis"}
+            aria-label="Toggle UI Audio Synthesis"
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border text-xs font-mono transition-all ${
+              audioEnabled
+                ? "bg-[#10b981]/15 border-[#10b981]/40 text-[#10b981]"
+                : "bg-[#0a0f1b] border-[#172033] text-[#64748b] hover:text-[#94a3b8]"
+            }`}
+          >
+            {audioEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            <span className="hidden xl:inline text-[10px]">{audioEnabled ? "SFX: ON" : "SFX: OFF"}</span>
+          </button>
+
           {/* Command Palette Trigger */}
           <button
-            onClick={onOpenCommandPalette}
+            onClick={() => {
+              soundEffects.playPulse();
+              onOpenCommandPalette();
+            }}
             aria-label="Open command palette"
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#0a0f1b] border border-[#172033] hover:border-[#00f0ff]/50 text-xs font-mono text-[#94a3b8] hover:text-white transition-all shadow-sm"
           >
@@ -116,6 +146,7 @@ export default function Navbar({ onOpenCommandPalette }: NavbarProps) {
             href={profileData.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => soundEffects.playClick(900)}
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#00f0ff]/10 hover:bg-[#00f0ff]/20 text-[#00f0ff] border border-[#00f0ff]/30 text-xs font-mono font-medium transition-all"
           >
             <FileText className="w-3.5 h-3.5" />
@@ -174,7 +205,10 @@ export default function Navbar({ onOpenCommandPalette }: NavbarProps) {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  soundEffects.playClick(850);
+                  setMobileMenuOpen(false);
+                }}
                 className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-mono text-[#cbd5e1] hover:text-[#00f0ff] hover:bg-[#0d1424] transition-colors"
               >
                 <span>{link.name}</span>

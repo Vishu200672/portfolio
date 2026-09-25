@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { philosophyPillars } from "@/data/philosophy";
 import { FadeIn } from "@/components/MotionWrapper";
+import SpotlightCard from "@/components/SpotlightCard";
+import { soundEffects } from "@/utils/audio";
 
 export default function EngineeringPhilosophy() {
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
@@ -90,7 +92,10 @@ export default function EngineeringPhilosophy() {
               return (
                 <button
                   key={idx}
-                  onClick={() => setSelectedIdx(idx)}
+                  onClick={() => {
+                    soundEffects.playClick(600 + idx * 50);
+                    setSelectedIdx(idx);
+                  }}
                   className={`w-full p-4 rounded-xl text-left border transition-all duration-200 relative overflow-hidden ${
                     isSelected
                       ? "bg-[#0f172a] border-[#00f0ff] shadow-[0_0_15px_-3px_rgba(0,240,255,0.2)]"
@@ -131,44 +136,48 @@ export default function EngineeringPhilosophy() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.22, ease: "easeOut" }}
-                className="p-6 sm:p-8 rounded-2xl bg-[#090d16] border border-[#172033] space-y-6 relative overflow-hidden"
               >
-                <div className="flex items-center justify-between pb-4 border-b border-[#172033]">
-                  <div className="text-xs font-mono text-[#00f0ff]">
-                    PRINCIPLE // {activePillar.step}
-                  </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/20">
-                    SYSTEM LAW
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-sans text-white">
-                    &ldquo;{activePillar.title}&rdquo;
-                  </h3>
-                  <p className="font-mono text-sm text-[#00f0ff] mt-2">
-                    {activePillar.principle}
-                  </p>
-                </div>
-
-                <div className="space-y-4 text-xs sm:text-sm text-[#cbd5e1] leading-relaxed">
-                  <div>
-                    <span className="font-mono text-xs font-bold text-[#94a3b8] uppercase block mb-1">
-                      Architectural Rationale:
-                    </span>
-                    <p>{activePillar.rationale}</p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-[#060910] border border-[#1e293b] space-y-1.5">
-                    <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#10b981]">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>How I Applied This In Production:</span>
+                <SpotlightCard
+                  spotlightColor="rgba(0, 240, 255, 0.16)"
+                  className="p-6 sm:p-8 space-y-6"
+                >
+                  <div className="flex items-center justify-between pb-4 border-b border-[#172033]">
+                    <div className="text-xs font-mono text-[#00f0ff]">
+                      PRINCIPLE // {activePillar.step}
                     </div>
-                    <p className="text-xs text-[#94a3b8] font-mono leading-relaxed">
-                      {activePillar.inPractice}
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/20">
+                      SYSTEM LAW
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold font-sans text-white">
+                      &ldquo;{activePillar.title}&rdquo;
+                    </h3>
+                    <p className="font-mono text-sm text-[#00f0ff] mt-2">
+                      {activePillar.principle}
                     </p>
                   </div>
-                </div>
+
+                  <div className="space-y-4 text-xs sm:text-sm text-[#cbd5e1] leading-relaxed">
+                    <div>
+                      <span className="font-mono text-xs font-bold text-[#94a3b8] uppercase block mb-1">
+                        Architectural Rationale:
+                      </span>
+                      <p>{activePillar.rationale}</p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-[#060910] border border-[#1e293b] space-y-1.5">
+                      <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#10b981]">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>How I Applied This In Production:</span>
+                      </div>
+                      <p className="text-xs text-[#94a3b8] font-mono leading-relaxed">
+                        {activePillar.inPractice}
+                      </p>
+                    </div>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             </AnimatePresence>
           </div>

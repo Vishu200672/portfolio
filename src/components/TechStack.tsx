@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { skillCategories, SkillCategoryGroup, SkillItem } from "@/data/skills";
 import { FadeIn } from "@/components/MotionWrapper";
+import { soundEffects } from "@/utils/audio";
 
 export default function TechStack() {
   const [activeCategoryId, setActiveCategoryId] = useState<string>("all");
@@ -57,7 +58,10 @@ export default function TechStack() {
         {/* Category Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
           <button
-            onClick={() => setActiveCategoryId("all")}
+            onClick={() => {
+              soundEffects.playClick(700);
+              setActiveCategoryId("all");
+            }}
             className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors shrink-0 ${
               activeCategoryId === "all"
                 ? "text-[#05070b] font-bold"
@@ -75,13 +79,16 @@ export default function TechStack() {
             <span className="relative z-10">ALL TECHNOLOGIES ({allSkills.length})</span>
           </button>
 
-          {skillCategories.map((cat) => {
+          {skillCategories.map((cat, idx) => {
             const Icon = categoryIcons[cat.id] || Cpu;
             const isSelected = activeCategoryId === cat.id;
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategoryId(cat.id)}
+                onClick={() => {
+                  soundEffects.playClick(750 + idx * 40);
+                  setActiveCategoryId(cat.id);
+                }}
                 className={`relative flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium transition-colors shrink-0 ${
                   isSelected
                     ? "text-[#05070b] font-bold"

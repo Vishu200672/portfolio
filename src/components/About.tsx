@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/MotionWrapper";
 import { profileData } from "@/data/profile";
+import SpotlightCard from "@/components/SpotlightCard";
 
 export default function About() {
   return (
@@ -41,7 +42,10 @@ export default function About() {
           {/* Main Statement & Core Pillars */}
           <div className="lg:col-span-7 space-y-6">
             <FadeIn delay={0.1}>
-              <div className="bg-[#0a0e17] border border-[#172033] hover:border-[#24324f] transition-colors rounded-xl p-6 sm:p-8 relative overflow-hidden">
+              <SpotlightCard
+                spotlightColor="rgba(0, 240, 255, 0.14)"
+                className="p-6 sm:p-8"
+              >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#00f0ff]/5 rounded-bl-full pointer-events-none" />
                 
                 <div className="flex items-center gap-2 mb-4 text-xs font-mono text-[#00f0ff]">
@@ -97,7 +101,7 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </FadeIn>
           </div>
 
@@ -105,7 +109,10 @@ export default function About() {
           <div className="lg:col-span-5 space-y-6">
             {/* Academic Credentials */}
             <FadeIn delay={0.15}>
-              <div className="bg-[#0a0e17] border border-[#172033] hover:border-[#24324f] transition-colors rounded-xl p-6">
+              <SpotlightCard
+                spotlightColor="rgba(16, 185, 129, 0.12)"
+                className="p-6"
+              >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2 text-xs font-mono text-[#00f0ff]">
                     <GraduationCap className="w-4 h-4" />
@@ -128,12 +135,15 @@ export default function About() {
                 <p className="text-xs text-[#94a3b8] leading-relaxed">
                   {profileData.education.details}
                 </p>
-              </div>
+              </SpotlightCard>
             </FadeIn>
 
             {/* Verified Certifications */}
             <FadeIn delay={0.2}>
-              <div className="bg-[#0a0e17] border border-[#172033] hover:border-[#24324f] transition-colors rounded-xl p-6">
+              <SpotlightCard
+                spotlightColor="rgba(129, 140, 248, 0.12)"
+                className="p-6"
+              >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2 text-xs font-mono text-[#818cf8]">
                     <Award className="w-4 h-4" />
@@ -167,7 +177,7 @@ export default function About() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </SpotlightCard>
             </FadeIn>
 
             {/* Systems Engineering Range Note */}

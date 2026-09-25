@@ -149,3 +149,20 @@
   outline: 2px solid #00f0ff;
   outline-offset: 2px;
 }
+
+/* 24-column grid for 384-dimensional tensor projection (16x24=384) */
+.grid-cols-24 {
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+}
+
+/* Rounded extra small */
+.rounded-xs {
+  border-radius: 2px;
+}
+
+/* Specular luxury border */
+.specular-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+

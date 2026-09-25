@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { hackathonsData } from "@/data/experience";
 import { FadeIn } from "@/components/MotionWrapper";
+import SpotlightCard from "@/components/SpotlightCard";
 
 export default function HackathonsTimeline() {
   return (
@@ -51,11 +52,9 @@ export default function HackathonsTimeline() {
                   {item.year}
                 </div>
 
-                {/* Content Card with motion */}
-                <motion.div
-                  whileHover={{ y: -3 }}
-                  transition={{ duration: 0.2 }}
-                  className="p-6 rounded-2xl bg-[#090d16] border border-[#172033] group-hover:border-[#00f0ff]/40 transition-colors duration-200"
+                <SpotlightCard
+                  spotlightColor="rgba(0, 240, 255, 0.14)"
+                  className="p-6"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <div className="flex items-center gap-3">
@@ -94,7 +93,7 @@ export default function HackathonsTimeline() {
                       Verified
                     </span>
                   </div>
-                </motion.div>
+                </SpotlightCard>
               </div>
             </FadeIn>
           ))}

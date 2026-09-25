@@ -17,6 +17,7 @@ import {
   Zap
 } from "lucide-react";
 import { FadeIn } from "@/components/MotionWrapper";
+import { soundEffects } from "@/utils/audio";
 
 export default function InteractivePlayground() {
   const [activeTab, setActiveTab] = useState<"smarthire" | "vision" | "customer360">("smarthire");
@@ -207,7 +208,10 @@ export default function InteractivePlayground() {
         {/* Simulator Tabs with sliding pill animation */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
           <button
-            onClick={() => setActiveTab("smarthire")}
+            onClick={() => {
+              soundEffects.playPulse();
+              setActiveTab("smarthire");
+            }}
             className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-mono font-medium transition-colors shrink-0 ${
               activeTab === "smarthire"
                 ? "text-[#05070b] font-bold"
@@ -226,7 +230,10 @@ export default function InteractivePlayground() {
           </button>
 
           <button
-            onClick={() => setActiveTab("vision")}
+            onClick={() => {
+              soundEffects.playPulse();
+              setActiveTab("vision");
+            }}
             className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-mono font-medium transition-colors shrink-0 ${
               activeTab === "vision"
                 ? "text-[#05070b] font-bold"
@@ -245,7 +252,10 @@ export default function InteractivePlayground() {
           </button>
 
           <button
-            onClick={() => setActiveTab("customer360")}
+            onClick={() => {
+              soundEffects.playPulse();
+              setActiveTab("customer360");
+            }}
             className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs font-mono font-medium transition-colors shrink-0 ${
               activeTab === "customer360"
                 ? "text-[#05070b] font-bold"

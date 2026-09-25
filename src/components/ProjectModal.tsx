@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Github } from "@/components/icons/BrandIcons";
 import { ProjectDetail } from "@/data/projects";
+import { soundEffects } from "@/utils/audio";
 
 interface ProjectModalProps {
   project: ProjectDetail | null;
@@ -36,6 +37,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       if (e.key === "Escape") onClose();
     };
     if (project) {
+      soundEffects.playPulse();
       window.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
     }
@@ -168,13 +170,16 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             {/* Tab Navigation with sliding indicator */}
             <div className="flex items-center gap-1 px-6 border-b border-[#172033] bg-[#060910] overflow-x-auto no-scrollbar">
-              {tabs.map((tab) => {
+              {tabs.map((tab, idx) => {
                 const Icon = tab.icon;
                 const isCurrent = activeTab === tab.id;
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
+                    onClick={() => {
+                      soundEffects.playClick(750 + idx * 40);
+                      setActiveTab(tab.id);
+                    }}
                     className={`relative flex items-center gap-2 py-3 px-3.5 text-xs font-mono font-medium border-b-2 transition-colors whitespace-nowrap ${
                       isCurrent
                         ? "border-[#00f0ff] text-[#00f0ff]"
